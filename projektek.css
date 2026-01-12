@@ -12,6 +12,8 @@ body {
     font-family: 'Share Tech Mono', monospace; 
     color: #e0e0e0;
     line-height: 1.6;
+    
+
     background: radial-gradient(circle at center top, #1a1a2e 0%, #050505 100%);
     background-attachment: fixed;
     background-size: cover;
@@ -65,40 +67,133 @@ nav {
 .nav-linkek a {
     color: #e0e0e0;
     text-decoration: none;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.9rem;
+    font-family: 'Share Tech Mono', monospace;
+            
+    font-size: 1rem;
     letter-spacing: 1px;
     transition: all 0.3s;
 }
-
-.nav-linkek a:hover, .nav-linkek a.aktiv {
+.nav-linkek a:hover {
     color: #00f3ff;
     text-shadow: 0 0 8px #00f3ff;
 }
 
 main {
-    padding-top: 100px;
-    padding-bottom: 50px;
+    padding-top: 60px;
+}
+
+#kezdooldal {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 40px;
+}
+
+.statusz-jelveny {
+    display: inline-block;
+    background-color: transparent;
+    color: #fcee0a;
+    border: 1px solid #fcee0a;
+    padding: 5px 20px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    margin-bottom: 25px;
+    box-shadow: 0 0 10px rgba(252, 238, 10, 0.2);
+    clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%, 0 40%);
 }
 
 h1 {
     font-family: 'Orbitron', sans-serif;
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    color: white;
+    text-transform: uppercase;
+    line-height: 1.2;
+}
+
+h1 span {
+    color: #00f3ff;
+    text-shadow: 0 0 15px #00f3ff;
+}
+
+.bemutatkozas {
+    max-width: 650px;
+    color: #8a8a9b;
+    font-size: 1.3rem;
+    margin: 0 auto 40px auto;
+    border-left: 3px solid #ff00ff;
+    padding-left: 20px;
+    text-align: center;
+    background: linear-gradient(90deg, rgba(255, 0, 255, 0.05) 0%, transparent 100%);
+}
+
+.gomb {
+    display: inline-block;
+    padding: 15px 35px;
+    text-decoration: none;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s;
+    position: relative;
+    cursor: pointer;
+    clip-path: polygon(15% 0, 100% 0, 100% 70%, 85% 100%, 0 100%, 0 30%);
+    margin: 10px;
+}
+
+.gomb-elsodleges {
+    background-color: #00f3ff;
+    color: #000;
+    border: none;
+}
+
+.gomb-elsodleges:hover {
+    background-color: white;
+    box-shadow: 0 0 20px #00f3ff;
+}
+
+.gomb-masodlagos {
+    background-color: transparent;
+    color: #ff00ff;
+    border: 1px solid #ff00ff;
+}
+
+.gomb-masodlagos:hover {
+    background-color: #ff00ff;
+    color: #000;
+    box-shadow: 0 0 20px #ff00ff;
+}
+
+section {
+    padding: 100px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+h2 {
+    font-family: 'Orbitron', sans-serif;
     font-size: 2.5rem;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
     color: white;
     text-transform: uppercase;
     border-left: 5px solid #fcee0a;
     padding-left: 20px;
 }
 
-h1 span {
+h2 span {
     color: #00f3ff;
+    font-size: 1.5rem;
+    vertical-align: middle;
+    margin-right: 10px;
 }
 
-.projekt-reszletes {
+article, .keszseg-kategoria, .kapcsolat-urlap {
     background-color: #0a0a12;
     border: 1px solid #333;
-    margin-bottom: 60px;
     position: relative;
     clip-path: polygon(
         0 0, 
@@ -109,112 +204,216 @@ h1 span {
     );
 }
 
-.projekt-fejlec {
+article:hover, .keszseg-kategoria:hover {
+    border-color: #00f3ff;
+    box-shadow: 0 0 15px rgba(0, 243, 255, 0.1);
+}
+
+.rolam-racs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+}
+
+.tanulmanyok-kartya {
+    padding: 30px;
+}
+
+.tanulmany-elem {
+    border-left: 1px dashed #8a8a9b;
+    padding-left: 20px;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.tanulmany-elem::before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: 5px;
+    width: 9px;
+    height: 9px;
+    background-color: #fcee0a;
+    box-shadow: 0 0 8px #fcee0a;
+}
+
+.tanulmany-szak {
+    color: #00f3ff;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+
+.tanulmany-iskola {
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.keszsegek-racs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.keszseg-kategoria {
+    padding: 30px;
+}
+
+.keszseg-kategoria h3 {
+    color: #ff00ff;
+    font-family: 'Orbitron', sans-serif;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #333;
+    padding-bottom: 10px;
+}
+
+.keszseg-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    color: #e0e0e0;
+}
+
+.folyamat-sav-keret {
+    width: 100%;
+    height: 10px;
+    background-color: #000;
+    border: 1px solid #333;
+}
+
+.folyamat-csik {
+    height: 100%;
+    background-color: #00f3ff;
+    box-shadow: 0 0 10px #00f3ff;
+    position: relative;
+}
+
+.folyamat-csik::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 2px;
+    background-color: white;
+}
+
+.folyamat-csik.kek { background-color: #00f3ff; }
+.folyamat-csik.rozsaszin { background-color: #ff00ff; box-shadow: 0 0 10px #ff00ff; }
+
+.projektek-racs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+article.projekt-kartya {
+    transition: transform 0.3s;
+}
+
+article.projekt-kartya:hover {
+    transform: translateY(-5px);
+}
+
+header.kartya-fejlec {
     background-color: rgba(255, 255, 255, 0.05);
-    padding: 15px 25px;
+    padding: 10px 15px;
     border-bottom: 1px solid #333;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.projekt-fejlec h2 {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.5rem;
-    color: white;
-    margin: 0;
-    text-shadow: 0 0 5px #00f3ff;
-}
-
-.datum-cimke {
-    font-family: 'Share Tech Mono', monospace;
+.tech-statusz {
+    font-size: 0.7rem;
     color: #fcee0a;
-    border: 1px solid #fcee0a;
-    padding: 2px 8px;
-    font-size: 0.8rem;
-}
-
-.projekt-torzs {
-    padding: 30px;
-}
-
-.projekt-leiras {
-    color: #e0e0e0;
-    margin-bottom: 30px;
-    font-size: 1.1rem;
-    border-left: 2px solid #ff00ff;
-    padding-left: 15px;
-}
-
-.kep-galeria {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-    margin-bottom: 25px;
-}
-
-.kep-tarolo {
-    position: relative;
-    height: 150px;
-    border: 1px solid #333;
-    overflow: hidden;
-    background-color: #000;
-}
-
-
-.projekt-kep {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.7;
-    transition: all 0.3s;
-}
-
-.kep-tarolo:hover {
-    border-color: #00f3ff;
-    box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
-}
-
-.kep-tarolo:hover .projekt-kep {
-    opacity: 1;
-    transform: scale(1.1);
-}
-
-.tech-lista {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.tech-cimke {
-    background-color: rgba(0, 243, 255, 0.1);
-    border: 1px solid #00f3ff;
-    color: #00f3ff;
-    padding: 5px 15px;
-    font-size: 0.85rem;
     text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
+.kartya-torzs {
+    padding: 25px;
+}
 
-.gomb {
-    display: inline-block;
-    padding: 10px 25px;
-    background-color: transparent;
-    color: #ff00ff;
-    border: 1px solid #ff00ff;
-    text-decoration: none;
+.projekt-cim {
     font-family: 'Orbitron', sans-serif;
-    font-weight: bold;
-    text-transform: uppercase;
-    transition: all 0.3s;
-    clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
-    margin-top: 20px;
+    font-size: 1.4rem;
+    color: white;
+    margin-bottom: 5px;
+    text-shadow: 0 0 5px rgba(255,255,255,0.3);
 }
 
-.gomb:hover {
-    background-color: #ff00ff;
-    color: #000;
-    box-shadow: 0 0 15px #ff00ff;
+.projekt-tipus {
+    font-family: 'Share Tech Mono', monospace;
+    color: #ff00ff;
+    font-size: 0.9rem;
+    display: block;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.teszteles-doboz {
+    background-color: rgba(0, 243, 255, 0.05);
+    padding: 15px;
+    border-left: 3px solid #00f3ff;
+    margin: 20px 0;
+}
+
+.teszt-cimke {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: #00f3ff;
+    display: block;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+}
+
+.cimke {
+    background-color: transparent;
+    border: 1px solid #8a8a9b;
+    color: #8a8a9b;
+    padding: 5px 10px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    transition: all 0.3s;
+}
+
+article.projekt-kartya:hover .cimke {
+    border-color: #00f3ff;
+    color: #00f3ff;
+}
+
+.kapcsolat-urlap {
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 50px;
+}
+
+.urlap-mezo {
+    width: 100%;
+    padding: 15px;
+    background-color: rgba(0,0,0,0.5);
+    border: 1px solid #333;
+    color: #00f3ff;
+    font-family: 'Share Tech Mono', monospace;
+    margin-bottom: 20px;
+    transition: 0.3s;
+}
+
+.urlap-mezo:focus {
+    outline: none;
+    border-color: #ff00ff;
+    box-shadow: 0 0 10px rgba(255, 0, 255, 0.2);
+}
+
+.urlap-csoport label {
+    color: #e0e0e0;
+    display: block;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
 }
 
 footer {
@@ -228,11 +427,175 @@ footer {
 footer p {
     color: #8a8a9b;
     font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.projekt-link {
+            text-decoration: none;
+            display: block;
+            height: 100%; 
 }
 
 @media (max-width: 768px) {
-    .kep-galeria {
-        grid-template-columns: 1fr 1fr;
+    .rolam-racs, .keszsegek-racs {
+        grid-template-columns: 1fr;
     }
+    h1 { font-size: 2.2rem; }
+    h2 { font-size: 1.8rem; }
     .nav-linkek { display: none; }
+    .nav-tartalom { justify-content: center; }
+    .kapcsolat-urlap { padding: 20px; }
+}
+
+body { cursor: none; }
+a, button, .gomb { cursor: none; }
+
+/* A külső gyűrű */
+.custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #00f3ff; /* Neon Cián */
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none; /* Át lehessen kattintani rajta */
+    z-index: 9999;
+    transition: width 0.3s, height 0.3s, border-color 0.3s, background-color 0.3s;
+    mix-blend-mode: difference; /* Menő színkeverés a háttérrel */
+}
+
+/* A belső pötty */
+.custom-cursor-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    background-color: #ff00ff; /* Neon Pink */
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 10000;
+}
+
+/* Hover állapot (amikor gomb fölé mész) */
+.custom-cursor.hover-active {
+    width: 60px;
+    height: 60px;
+    border-color: #fcee0a; /* Neon Sárga */
+    background-color: rgba(252, 238, 10, 0.1);
+    border-width: 2px;
+}
+
+.custom-cursor-dot.hover-active {
+    width: 12px;
+    height: 12px;
+    background-color: #fcee0a;
+}
+
+/* Kattintás állapot */
+.custom-cursor.click-active {
+    transform: translate(-50%, -50%) scale(0.8);
+    background-color: rgba(0, 243, 255, 0.3);
+}
+
+/* Mobil nézeten tiltsuk le, mert ott zavaró és nincs egér */
+@media (max-width: 768px) {
+    .custom-cursor, .custom-cursor-dot {
+        display: none;
+    }
+    body, a, button, .gomb { cursor: auto; }
+}
+
+/* =========================================
+   CYBERPUNK ANIMÁLT HÁTTÉR
+   ========================================= */
+
+#cyber-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Nagyon fontos: a tartalom mögé kerüljön */
+    background: radial-gradient(circle at center, #1a1a2e 10%, #000000 90%); /* Sötét alap */
+    opacity: 0.95; /* Hogy ne legyen túl zavaró a szöveg mögött */
+    pointer-events: none; /* Át lehessen kattintani rajta, ha szükséges */
+}
+
+/* Ha a body-nak volt háttere, azt most felülírjuk vagy kivesszük, 
+   hogy látszódjon a canvas */
+body {
+    background: transparent; /* A canvas adja a hátteret */
+}
+
+/* =========================================
+   BOOT SCREEN (Rendszerindítás)
+   ========================================= */
+
+#boot-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000; /* Teljes fekete háttér */
+    z-index: 8999; /* A CRT Overlay (9000) alatt, de minden más felett */
+    display: flex;
+    align-items: flex-start; /* Fentről induljon a szöveg */
+    justify-content: flex-start;
+    padding: 40px;
+    font-family: 'Share Tech Mono', monospace;
+    color: #00f3ff; /* Neon Cián alapszín */
+    cursor: wait; /* Homokóra kurzor */
+}
+
+#boot-terminal {
+    width: 100%;
+    max-width: 800px;
+}
+
+#boot-terminal p {
+    margin: 5px 0;
+    font-size: 1.1rem;
+    line-height: 1.4;
+    text-shadow: 0 0 5px rgba(0, 243, 255, 0.5);
+    opacity: 0; /* Kezdetben láthatatlan */
+    animation: typeLine 0.1s forwards; /* Gyors megjelenés */
+}
+
+/* Villogó kurzor a sor végén (opcionális extra) */
+#boot-terminal p:last-child::after {
+    content: '_';
+    animation: blinkCursor 0.5s infinite;
+}
+
+@keyframes typeLine {
+    to { opacity: 1; }
+}
+
+@keyframes blinkCursor {
+    50% { opacity: 0; }
+}
+
+@media (max-width: 768px) {
+    #boot-screen {
+        padding: 20px;
+    }
+    #boot-terminal p {
+        font-size: 0.9rem;
+    }
+}
+
+#input-cursor {
+    display: inline-block;
+    animation: blinkCursor 0.5s infinite;
+    font-weight: bold;
+    color: #fcee0a;
+}
+@keyframes blinkCursor {
+    50% { opacity: 0; }
 }

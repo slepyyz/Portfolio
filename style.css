@@ -589,3 +589,13 @@ body {
         font-size: 0.9rem;
     }
 }
+
+#input-cursor {
+    display: inline-block;
+    animation: blinkCursor 0.5s infinite;
+    font-weight: bold;
+    color: #fcee0a;
+}
+@keyframes blinkCursor {
+    50% { opacity: 0; }
+}

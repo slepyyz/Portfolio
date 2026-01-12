@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="crt.css">
     <title>Cyberpunk Portfólió - Programozó & Tesztelő</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
-
+    <div class="crt-overlay"></div>
     <nav>
         <div class="tarolo nav-tartalom">
             <a href="#kezdooldal" class="logo">
@@ -249,20 +250,28 @@
                     KAPCSOLAT KEZDEMÉNYEZÉSE...
                 </p>
 
-                <form class="kapcsolat-urlap">
+                <form action="https://formspree.io/f/xnjjqjej" method="POST" class="kapcsolat-urlap">
+                    
                     <div class="urlap-csoport">
                         <label>Azonosító (Név)</label>
-                        <input type="text" class="urlap-mezo" placeholder="USER NAME_">
+                        <!-- name="nev" hozzáadva -->
+                        <input type="text" name="nev" class="urlap-mezo" placeholder="USER NAME_" required>
                     </div>
+                    
                     <div class="urlap-csoport">
                         <label>Elektronikus Cím (Email)</label>
-                        <input type="email" class="urlap-mezo" placeholder="EMAIL ADDRESS_">
+                        <!-- name="email" hozzáadva -->
+                        <input type="email" name="email" class="urlap-mezo" placeholder="EMAIL ADDRESS_" required>
                     </div>
+                    
                     <div class="urlap-csoport">
                         <label>Adatcsomag (Üzenet)</label>
-                        <textarea class="urlap-mezo" rows="5" placeholder="INSERT MESSAGE_"></textarea>
+                        <!-- name="uzenet" hozzáadva -->
+                        <textarea name="uzenet" class="urlap-mezo" rows="5" placeholder="INSERT MESSAGE_" required></textarea>
                     </div>
-                    <button type="button" class="gomb gomb-elsodleges" style="width: 100%; cursor: pointer;">KÜLDÉS [ENTER]</button>
+                    
+                    <!-- type="submit" hozzáadva -->
+                    <button type="submit" class="gomb gomb-elsodleges" style="width: 100%; cursor: pointer;">KÜLDÉS [ENTER]</button>
                 </form>
             </div>
         </section>
@@ -272,6 +281,9 @@
     <footer>
         <p>SYSTEM STATUS: ONLINE | © 2026 SZONTAGH ÁGOSTON | END OF LINE_</p>
     </footer>
-
+    <script src="script.js"></script>
+    <script src="cursor.js"></script>
+    <script src="matrix_rain.js"></script>
+    <script src="boot.js"></script>
 </body>
 </html>

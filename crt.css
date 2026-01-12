@@ -1,0 +1,97 @@
+/* =========================================
+   CRT MONITOR / CYBERDECK EFFEKT
+   ========================================= */
+
+/* Ez a réteg felel a csíkokért (Scanlines) */
+.crt-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9000; /* A háttér és tartalom fölött, de a kurzor és menü alatt */
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0),
+        rgba(255, 255, 255, 0) 50%,
+        rgba(0, 0, 0, 0.2) 50%,
+        rgba(0, 0, 0, 0.2)
+    );
+    background-size: 100% 4px; 
+    pointer-events: none; 
+    animation: fadeIn 1s ease-out;
+}
+
+.crt-overlay::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: radial-gradient(
+        circle,
+        rgba(18, 16, 16, 0) 50%,
+        rgba(0, 0, 0, 0.4) 100%
+    );
+    background-size: cover;
+    z-index: 2;
+}
+
+.crt-overlay::after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(18, 16, 16, 0.1);
+    opacity: 0;
+    z-index: 2;
+    pointer-events: none;
+    animation: flicker 0.15s infinite;
+}
+
+@keyframes flicker {
+    0% { opacity: 0.02; }
+    5% { opacity: 0.05; }
+    10% { opacity: 0.01; }
+    15% { opacity: 0.06; }
+    30% { opacity: 0.02; }
+    60% { opacity: 0.04; }
+    90% { opacity: 0.02; }
+    100% { opacity: 0.05; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes scanline {
+    0% {
+        background-position: 0 0%;
+    }
+    100% {
+        background-position: 0 100%;
+    }
+}
+
+@keyframes flicker {
+    0% { opacity: 0.02; }
+    5% { opacity: 0.05; }
+    10% { opacity: 0.01; }
+    15% { opacity: 0.06; }
+    30% { opacity: 0.02; }
+    60% { opacity: 0.04; }
+    90% { opacity: 0.02; }
+    100% { opacity: 0.05; }
+}
+
+@media (max-width: 768px) {
+    .crt-overlay {
+        display: none;
+    }
+}

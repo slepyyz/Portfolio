@@ -1,29 +1,29 @@
 /**
- * CYBERPUNK 2077 - NETRUNNER BACKGROUND
- * Reaktív Canvas Animáció
+ * CYBERPUNK "DEEP NET" BACKGROUND
+ * Lassú, elegáns, hálózatos animáció
  */
 
 const canvas = document.createElement('canvas');
 canvas.id = 'cyber-bg';
-document.body.prepend(canvas); // A body elejére szúrjuk be
+// Ha van már ilyen, cseréljük, ha nincs, beszúrjuk
+const existingCanvas = document.getElementById('cyber-bg');
+if (existingCanvas) {
+    existingCanvas.replaceWith(canvas);
+} else {
+    document.body.prepend(canvas);
+}
 
 const ctx = canvas.getContext('2d');
 
 let width, height;
 let particles = [];
-const particleCount = 120; // Részecskék száma (mobilon kevesebb lehet)
-const connectionDistance = 120; // Milyen közel kell lenni a vonalhoz
-const mouseDistance = 180; // Egér interakció távolsága
+// Kevesebb részecske a tisztább hatásért
+const particleCount = window.innerWidth < 768 ? 30 : 50; 
+const connectionDistance = 150; // Milyen messziről kössön össze
 
-// Cyberpunk Színpaletta
-const colors = [
-    '#fcee0a', // CP77 Sárga
-    '#00f3ff', // Neon Cián
-    '#ff00ff'  // Neon Pink
-];
-
-// Egér pozíció
+// Egér
 let mouse = { x: null, y: null };
+const mouseRadius = 200; // Ekkora körben reagál az egérre
 
 window.addEventListener('mousemove', (e) => {
     mouse.x = e.x;
@@ -35,7 +35,6 @@ window.addEventListener('mouseleave', () => {
     mouse.y = null;
 });
 
-// Vászon méretezése
 function resize() {
     width = canvas.width = window.innerWidth;
     height = canvas.height = window.innerHeight;
@@ -44,40 +43,42 @@ function resize() {
 window.addEventListener('resize', resize);
 resize();
 
-// Részecske osztály
 class Particle {
     constructor() {
         this.x = Math.random() * width;
         this.y = Math.random() * height;
-        this.vx = (Math.random() - 0.5) * 1.5; // Sebesség X
-        this.vy = (Math.random() - 0.5) * 1.5; // Sebesség Y
-        this.size = Math.random() * 2 + 1; // Méret
-        this.color = colors[Math.floor(Math.random() * colors.length)];
+        // Nagyon lassú mozgás a nyugodt hatáshoz
+        this.vx = (Math.random() - 0.5) * 0.3; 
+        this.vy = (Math.random() - 0.5) * 0.3;
+        this.size = Math.random() * 1.5 + 0.5; // Apró pöttyök
+        
+        // Sötétebb alapszín (szürke/kék), csak interakciónál lesz fényes
+        this.baseColor = 'rgba(100, 116, 139, 0.5)'; 
     }
 
     update() {
         this.x += this.vx;
         this.y += this.vy;
 
-        // Visszapattanás a falról
+        // Visszapattanás a falakról
         if (this.x < 0 || this.x > width) this.vx *= -1;
         if (this.y < 0 || this.y > height) this.vy *= -1;
 
-        // Egér interakció (Kitérés)
+        // Egér interakció
         if (mouse.x != null) {
             let dx = mouse.x - this.x;
             let dy = mouse.y - this.y;
             let distance = Math.sqrt(dx * dx + dy * dy);
 
-            if (distance < mouseDistance) {
+            if (distance < mouseRadius) {
+                // Ha közel van az egér, kicsit nagyobbra nő
                 const forceDirectionX = dx / distance;
                 const forceDirectionY = dy / distance;
-                const force = (mouseDistance - distance) / mouseDistance;
+                const force = (mouseRadius - distance) / mouseRadius;
                 
-                // Ha közel van az egér, lökjük el kicsit (vagy vonzzuk)
-                // Itt most finom kitérés effekt van:
-                const directionX = forceDirectionX * force * 2;
-                const directionY = forceDirectionY * force * 2;
+                // Enyhe taszítás, hogy "utat törj" az adatok közt
+                const directionX = forceDirectionX * force * 0.6;
+                const directionY = forceDirectionY * force * 0.6;
 
                 this.x -= directionX;
                 this.y -= directionY;
@@ -87,14 +88,12 @@ class Particle {
 
     draw() {
         ctx.beginPath();
-        // Négyzetek a cyberpunk stílus miatt (kör helyett)
-        ctx.rect(this.x, this.y, this.size * 2, this.size * 2);
-        ctx.fillStyle = this.color;
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = this.baseColor;
         ctx.fill();
     }
 }
 
-// Inicializálás
 function init() {
     particles = [];
     for (let i = 0; i < particleCount; i++) {
@@ -102,17 +101,15 @@ function init() {
     }
 }
 
-// Animációs hurok
 function animate() {
     requestAnimationFrame(animate);
     ctx.clearRect(0, 0, width, height);
 
-    // Hálózat rajzolása
     for (let i = 0; i < particles.length; i++) {
         particles[i].update();
         particles[i].draw();
 
-        // Vonalak a részecskék között
+        // Kapcsolatok rajzolása
         for (let j = i; j < particles.length; j++) {
             let dx = particles[i].x - particles[j].x;
             let dy = particles[i].y - particles[j].y;
@@ -120,26 +117,27 @@ function animate() {
 
             if (distance < connectionDistance) {
                 ctx.beginPath();
-                ctx.strokeStyle = `rgba(0, 243, 255, ${1 - distance / connectionDistance})`; // Átlátszó cián
+                
+                // Alapból nagyon halvány vonal
+                let opacity = 1 - (distance / connectionDistance);
+                let strokeColor = `rgba(100, 116, 139, ${opacity * 0.1})`; // Alig látható
+
+                // Ha az egér közel van, a vonalak felizzanak (Neon Cián)
+                if (mouse.x != null) {
+                    let mouseDx = mouse.x - particles[i].x;
+                    let mouseDy = mouse.y - particles[i].y;
+                    let mouseDist = Math.sqrt(mouseDx*mouseDx + mouseDy*mouseDy);
+
+                    if (mouseDist < mouseRadius) {
+                        // Fényesebb és ciánkék lesz
+                        strokeColor = `rgba(0, 243, 255, ${opacity * 0.6})`;
+                    }
+                }
+
+                ctx.strokeStyle = strokeColor;
                 ctx.lineWidth = 0.5;
                 ctx.moveTo(particles[i].x, particles[i].y);
                 ctx.lineTo(particles[j].x, particles[j].y);
-                ctx.stroke();
-            }
-        }
-
-        // Vonalak az egérhez (NETRUNNER LINK)
-        if (mouse.x != null) {
-            let dx = particles[i].x - mouse.x;
-            let dy = particles[i].y - mouse.y;
-            let distance = Math.sqrt(dx * dx + dy * dy);
-
-            if (distance < mouseDistance) {
-                ctx.beginPath();
-                ctx.strokeStyle = `rgba(252, 238, 10, ${1 - distance / mouseDistance})`; // Sárga kapcsolat
-                ctx.lineWidth = 1;
-                ctx.moveTo(particles[i].x, particles[i].y);
-                ctx.lineTo(mouse.x, mouse.y);
                 ctx.stroke();
             }
         }
